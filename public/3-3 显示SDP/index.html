@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <titile>WebRTC PeerConnection</titile>
+        <link rel="stylesheet" href="./css/main.css"></link>
+    </head>
+    <body>
+        <div>
+            <div>
+                <button id="start">Start</button>
+                <button id="call" disabled>Call</button>
+                <button id="hangup" disabled>HangUp</button>
+            </div>
+            <div id="preview">
+                <div>
+                    <h2>Local:</h2>
+                    <video id="localvideo" autoplay playsinline></video>
+
+                    <h2>Offer SDP:</h2>
+                    <textarea id="offer"></textarea>
+                </div>
+                <div>
+                    <h2>Remote:</h2>
+                    <video id="remotevideo" autoplay playsinline></video>
+
+                    <h2>Answer SDP:</h2>
+                    <textarea id="answer"></textarea>
+                </div>
+            </div>
+        </div>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"></script> -->
+        <script src="./js/adapter.js"></script>
+        <script src="./js/main.js"></script>
+    </body>
+</html>

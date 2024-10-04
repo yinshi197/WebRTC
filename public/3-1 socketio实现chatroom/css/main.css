@@ -1,0 +1,96 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+table {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  border-collapse: separate;
+  border-spacing: 10px;
+}
+
+label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333333;
+}
+
+input[type="text"] {
+  width: 80%; /* Reduce width to 80% of the available space */
+  max-width: 300px; /* Set a maximum width */
+  padding: 10px;
+  margin-top: 8px;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #333;
+  background-color: #fafafa;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+
+textarea[disabled], 
+input[disabled] {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
+button {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  font-family: inherit;
+  margin-top: 10px;
+}
+
+button#leave {
+  background-color: #dc3545;
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+button:not(:disabled):hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+td {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#output {
+  height: 200px;
+  resize: none;
+  background-color: #fafafa;
+}
+
+#input {
+  height: 100px;
+  resize: none;
+  background-color: #fafafa;
+}

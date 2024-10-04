@@ -1,0 +1,85 @@
+<html>
+	<head>
+		<title>WebRTC PeerConnection</title>
+		<link href="./css/main.css" rel="stylesheet" />
+		<style>
+            .none {
+                -webkit-filter: none;
+            }
+
+            .blur {
+                -webkit-filter: blur(3px);
+            }
+
+            .grayscale {
+                -webkit-filter: grayscale(1);
+            }
+
+            .inver {
+                -webkit-filter: invert(1);
+            }
+
+            .sepia {
+                -webkit-filter: sepia(1);
+            }
+        </style>
+	</head>
+
+	<body>
+		<div>
+
+
+			<div>
+				<button id="connserver">Connect Sig Server</button>
+				<!--<button id="start" disabled>Start</button>	
+				<button id="call" disabled>Call</button>	
+				<button id="hangup" disabled>HangUp</button>	
+				-->
+				<button id="leave" disabled>Leave</button>	
+			</div>
+
+			<div>
+				<input id="shareDesk" type="checkbox"/><label for="shareDesk">Share Desktop</label>
+			</div>
+
+
+			<div id="preview">
+				<div >
+					<h2>Local:</h2>
+					<video id="localvideo" autoplay playsinline muted></video>
+					<audio id="localaudio" autoplay muted></audio>
+					<label>filter:</label>
+						<select id="localfilter">
+							<option value="none">None</option>
+							<option value="blur">Blur</option>
+							<option value="grayscale">Grayscale</option>
+							<option value="invert">Invert</option>
+							<option value="sepia">Sepia</option>
+						</select>
+					<h2>Offer SDP:</h2>
+					<textarea id="offer"></textarea>
+				</div>
+				<div>
+					<h2>Remote:</h2>
+					<video id="remotevideo" autoplay playsinline></video>
+					<audio id="remoteaudio" autoplay></audio>
+					<label>BandWidth:</label>
+						<select id="bandwidth" disabled>
+							<option value="unlimited">unlimit</option>
+							<option value="2000">2000</option>
+							<option value="1000">1000</option>
+							<option value="500">500</option>
+							<option value="250">250</option>
+							<option value="125">125</option>
+						</select> kbps
+					<h2>Answer SDP:</h2>
+					<textarea id="answer"></textarea>
+				</div>
+			</div>
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+		<script src="./js/adapter.js"></script>
+		<script src="js/main.js"></script>
+	</body>
+</html>
