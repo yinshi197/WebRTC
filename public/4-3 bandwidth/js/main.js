@@ -23,7 +23,7 @@ localfiltersSelect.onchange = function(){
 
 bandwidthSelect.onchange = function(){
 	bandwidthSelect.disabled = true;
-    var bw = bandwidthSelect.options[bw.selectedIndex].value;
+    var bw = bandwidthSelect.options[bandwidthSelect.selectedIndex].value;
 	
 	//只控制 视频的带宽
 	var vsender = null;
@@ -36,15 +36,16 @@ bandwidthSelect.onchange = function(){
 
 	var paramters = vsender.getParameters();
 	//没有或者bw为unlimited直接返回
-	if(!paramters.encodeings) {
+	if(!paramters.encodings) {
 		return;
 	}
 
 	if(bw == 'unlimited'){
+		bandwidthSelect.disabled = false;
 		return;
 	}
 
-	paramters.encodeings[0].maxBitrate = bw * 1000;
+	paramters.encodings[0].maxBitrate = bw * 1000;
 	
 	vsender.setParameters(paramters)
 			.then(()=>{
@@ -53,6 +54,8 @@ bandwidthSelect.onchange = function(){
 			.catch(error=>{
 				console.log('Failed to set paramters', error);
 			});
+			
+	bandwidthSelect.disabled = false;
 }
 
 var pcConfig = {
