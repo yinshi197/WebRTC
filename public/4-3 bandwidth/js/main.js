@@ -17,6 +17,14 @@ var shareDeskBox  = document.querySelector('input#shareDesk');
 var localfiltersSelect = document.querySelector('select#localfilter');
 var bandwidthSelect = document.querySelector('select#bandwidth');
 
+var bitrateGraph;
+var bitrateSeries;
+
+var packetGraph;
+var packetSeries;
+
+var lastResult;
+
 localfiltersSelect.onchange = function(){
     localVideo.className = localfiltersSelect.value;
 }
@@ -274,6 +282,14 @@ function getMediaStream(stream){
 	//一定要放到getMediaStream之后再调用
 	//否则就会出现绑定失败的情况
 	conn();
+
+	bitrateSeries = new TimelineDataSeries();
+	bitrateGraph = new TimelineGraphView('bitrateGraph', 'bitrateCanvas');
+	bitrateGraph.updateEndDate();
+
+	packetSeries = new TimelineDataSeries();
+	packetGraph = new TimelineGraphView('packetGraph', 'packetCanvas');
+	packetGraph.updateEndDate();
 }
 
 function getDeskStream(stream){
@@ -473,6 +489,56 @@ function leave() {
 	btnConn.disabled = false;
 	btnLeave.disabled = true;
 }
+
+//定时器:1秒刷新
+window.setInterval(()=>{
+	//只显示视频的信息
+	var vsender = null;
+	var senders = pc.getSenders();  //获取sender
+	senders.forEach(sender => {
+		if(sender && sender.track.kind == 'video'){
+			vsender = sender;
+		}
+	});
+
+	if(!vsender){
+		return;
+	}
+
+	vsender.getStats()
+			.then(reports => {
+				reports.forEach(report => {
+					if(report.type === 'outbound-rtp') {
+						if(report.isRemote) {
+							return;
+						}
+
+						var curTs = report.timestamp;	//当前时间
+						var bytes = report.bytesSent;	//当前发送的字节数
+						var packets = report.packetsSent;	//当前发送的包数
+
+						if(lastResult && lastResult.has(report.id)){
+							var bitrate = 8 * (bytes - lastResult.get(report.id).bytesSent) / (curTs - lastResult.get(report.id).timestamp);	
+						
+							//渲染码率和包数统计图
+							bitrateSeries.addPoint(curTs, bitrate);
+							bitrateGraph.setDataSeries([bitrateSeries]);
+							bitrateGraph.updateEndDate();
+
+							packetSeries.addPoint(curTs, packets - lastResult.get(report.id).packetsSent);
+							packetGraph.setDataSeries([packetSeries]);
+							packetGraph.updateEndDate();
+						
+						}
+					}
+				});
+				lastResult = reports;
+			})
+			.catch(err => {
+				console.error(err)
+			});
+	
+}, 1000)
 
 btnConn.onclick = connSignalServer
 btnLeave.onclick = leave;

@@ -28,7 +28,6 @@
 	<body>
 		<div>
 
-
 			<div>
 				<button id="connserver">Connect Sig Server</button>
 				<!--<button id="start" disabled>Start</button>	
@@ -76,11 +75,24 @@
 					<textarea id="answer"></textarea>
 				</div>
 			</div>
+
+			<div>
+				<div class="graph-container" id="bitrateGraph">
+					<div>Bitrate</div>
+					<canvas id="bitrateCanvas"></canvas>
+				</div>
+				
+				<div class="graph-container" id="packetGraph">
+					<div>Packets sent per second</div>
+					<canvas id="packetCanvas"></canvas>
+				</div>
+			</div>
+	
 		</div>
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"></script>
-		<!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script> -->
 		<script src="./js/adapter.js"></script>
-		<script src="js/main.js"></script>
+		<script src="./js/graph.js"></script>
+		<script src="./js/main.js"></script>
 	</body>
 </html>
